@@ -14,11 +14,11 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(591, 223)
+        MainWindow.resize(591, 238)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.listWidget = QtWidgets.QListWidget(self.centralwidget)
-        self.listWidget.setGeometry(QtCore.QRect(20, 30, 371, 141))
+        self.listWidget.setGeometry(QtCore.QRect(20, 30, 371, 171))
         self.listWidget.setObjectName("listWidget")
         self.label = QtWidgets.QLabel(self.centralwidget)
         self.label.setGeometry(QtCore.QRect(20, 10, 281, 16))
@@ -38,11 +38,14 @@ class Ui_MainWindow(object):
         self.label_3.setGeometry(QtCore.QRect(410, 60, 231, 20))
         self.label_3.setObjectName("label_3")
         self.verticalLayoutWidget = QtWidgets.QWidget(self.centralwidget)
-        self.verticalLayoutWidget.setGeometry(QtCore.QRect(410, 110, 160, 71))
+        self.verticalLayoutWidget.setGeometry(QtCore.QRect(410, 110, 160, 91))
         self.verticalLayoutWidget.setObjectName("verticalLayoutWidget")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.verticalLayoutWidget)
         self.verticalLayout.setContentsMargins(0, 0, 0, 0)
         self.verticalLayout.setObjectName("verticalLayout")
+        self.pushButton_3 = QtWidgets.QPushButton(self.verticalLayoutWidget)
+        self.pushButton_3.setObjectName("pushButton_3")
+        self.verticalLayout.addWidget(self.pushButton_3)
         self.pushButton_2 = QtWidgets.QPushButton(self.verticalLayoutWidget)
         self.pushButton_2.setObjectName("pushButton_2")
         self.verticalLayout.addWidget(self.pushButton_2)
@@ -59,9 +62,10 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "Оцінка моделей скоррінга"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.label.setText(_translate("MainWindow", "Перелік моделей"))
         self.label_2.setText(_translate("MainWindow", "Accuracy"))
         self.label_3.setText(_translate("MainWindow", "AUC"))
+        self.pushButton_3.setText(_translate("MainWindow", "Завантажити"))
         self.pushButton_2.setText(_translate("MainWindow", "Почати"))
         self.pushButton.setText(_translate("MainWindow", "Закрити"))

@@ -18,6 +18,8 @@ from lightgbm import LGBMClassifier
 from sklearn.metrics import accuracy_score
 from numpy import hstack
 from PyQt5.QtCore import QThread
+from PyQt5.QtWidgets import QFileDialog
+import os
 
 models = ['Логістична регресія', 'XGBoost', 'Класифікатор LGBM',
           'Лінійний дискримінантний аналіз', 'Байєсівський класифікатор', 'Дерево рішень']
@@ -43,9 +45,13 @@ class TheWindow(qw.QMainWindow):
         super(TheWindow, self).__init__()
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
+        self.df_name = None
 
         self.ui.pushButton.clicked.connect(self.on_exit)
         self.ui.pushButton_2.clicked.connect(self.on_evaluate)
+        self.ui.pushButton_3.clicked.connect(self.load_data)
+
+        self.ui.pushButton_2.setDisabled(True)
 
         for model in models:
             widgetItem = QtWidgets.QListWidgetItem(self.ui.listWidget)
@@ -62,6 +68,13 @@ class TheWindow(qw.QMainWindow):
 
     def on_exit(self):
         sys.exit(0)
+
+    def load_data(self):
+        fname = QFileDialog.getOpenFileName(self, 'Open file',
+                                            os.getcwd(), "Data file (*.pickle *.pkl)")
+        if fname:
+            self.ui.pushButton_2.setDisabled(False)
+            self.df_name = fname
 
     def checkedItems(self):
         for index in range(self.ui.listWidget.count()):
@@ -114,6 +127,7 @@ class Calculator(QThread):
         QtCore.QThread.__init__(self, parent=parent)
         self.checkers = checkers
         self.df = None
+        self.parent = parent
 
     def fit_ensemble(self, models, X_train, X_val, y_train, y_val):
         meta_X = list()
@@ -143,7 +157,7 @@ class Calculator(QThread):
             message = 'Використання ансамблю моделей'
         self.start_calc.emit(message)
 
-        self.df = pd.read_pickle('pyqt_data.pickle')
+        self.df = pd.read_pickle(self.parent.df_name[0])
 
         y = self.df[['TARGET']].values
         X = self.df.drop(columns=['TARGET'])
